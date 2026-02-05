@@ -1,0 +1,2208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+本文件用于定义通信流程，每种操作包含一组协议，return节点定义了返回某个值之后执行什么函数，发送哪条协议。
+operation为操作节点，type为操作类型名
+comm为通信节点，id为通信就节点id，protocol_id为协议id，与protocol配置文件对应 return_process为处理协议返回值的回调函数，根据此函数的执行结果确定下一步动作
+return为协议返回值节点，next_comm为下一个通信节点的id，pre_callback为发送协议之前执行的回调函数，post_callback为发送协议之后执行的回调函数。返回err:0...等错误码的情况不用配置，程序中已经自动处理
+-->
+<root>
+  <!-- ae8600s预热-->
+  <operation type="ae8600s_userCheck">
+    <comm id="1" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+  </operation>
+  <!-- ae8600s直流频响-->
+  <operation type="ae8600s_directcurrent_freq">
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1113" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1114" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="1112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1115" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1116" protocol_id="222" return_process="userCheckProcessCallback"><!-- 获取序列号 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-21" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG1-->
+      <return next_comm="-20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-20" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-19" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG2 -->
+      <return next_comm="-18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-18" protocol_id="72" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-17" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG3 -->
+      <return next_comm="-16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-16" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-15" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG4 -->
+      <return next_comm="-14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-14" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-12" protocol_id="170" return_process="userCheckProcessCallback"> <!-- 询问	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-11" protocol_id="151" return_process="userCheckProcessCallback"><!-- 调整光衰波长1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-10" protocol_id="152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-311" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 调整光衰波长1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-310" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-9" protocol_id="151" return_process="userCheckProcessCallback"><!-- 调整光衰波长2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-8" protocol_id="152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-309" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 调整光衰波长2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-308" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-7" protocol_id="160" return_process="userCheckProcessCallback"><!-- 调整功率波长3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-6" protocol_id="161" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-307" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 调整功率波长3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-306" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-5" protocol_id="153" return_process="userCheckProcessCallback"><!-- 调整1光衰 15	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-4" protocol_id="154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-3" protocol_id="153" return_process="userCheckProcessCallback"><!-- 调整2光衰 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-2" protocol_id="154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-305" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 调整1光衰 15	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-304" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-303" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 调整2光衰 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-302" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-1" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG5-->
+      <return next_comm="-100" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-100" protocol_id="72" return_process="userCheckProcessCallback"><!-- 8	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-301" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG5-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-400" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 8	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-101" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG1-->
+      <return next_comm="-102" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-102" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-104" protocol_id="162" return_process="userCheckProcessCallback"><!-- 获取功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-404" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 获取功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-105" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整  OG5-->
+      <return next_comm="-106" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-106" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1-6	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-405" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 光开关调整  OG5-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-406" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 1-6	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-107" protocol_id="239" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，On-->
+      <return next_comm="-108" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-108" protocol_id="240" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，On	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <!-- 8600s设置-->
+    <comm id="1" protocol_id="122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="2" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-109" protocol_id="148" return_process="userCheckProcessCallback"><!-- 设置RBW清零	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="3" protocol_id="124" return_process="userCheckProcessCallback"><!-- 设置86400s中心波长	 -->
+      <return next_comm="4" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="4" protocol_id="125" return_process="userCheckProcessCallback"><!-- 询问86400s中心波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="5" protocol_id="233" return_process="userCheckProcessCallback"><!-- 设置86400span	 -->
+      <return next_comm="6" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="6" protocol_id="234" return_process="userCheckProcessCallback"><!-- 询问86400span	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="7" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置86400s灵敏度	 -->
+      <return next_comm="8" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="8" protocol_id="204" return_process="userCheckProcessCallback"><!-- 询问86400s灵敏度	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="9" protocol_id="213" return_process="userCheckProcessCallback"><!-- 设置86400s分辨率	 -->
+      <return next_comm="10" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="10" protocol_id="214" return_process="userCheckProcessCallback"><!-- 询问86400s分辨率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11" protocol_id="225" return_process="userCheckProcessCallback"><!-- 设置86400s采样间隔 0.001	 -->
+      <return next_comm="12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="12" protocol_id="226" return_process="userCheckProcessCallback"><!-- 询问86400s采样点	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="13" protocol_id="128" return_process="userCheckProcessCallback"><!-- 设置单次扫描	 -->
+      <return next_comm="14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="14" protocol_id="129" return_process="userCheckProcessCallback"><!-- 获取单次扫描	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="15" protocol_id="201" return_process="userCheckProcessCallback"><!-- 设置直流频响-->
+      <return next_comm="16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="16" protocol_id="202" return_process="userCheckProcessCallback"><!-- 询问 1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <!--设置通道 衰减光衰1，对比第二通道第一点AD值	 -->
+    <comm id="17" protocol_id="136" return_process="userCheckProcessCallback"><!-- 设置通道	 -->
+      <return next_comm="18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="18" protocol_id="137" return_process="userCheckProcessCallback"><!-- 询问当前通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="19" protocol_id="140" return_process="userCheckProcessCallback"><!-- 设置速度-->
+      <return next_comm="20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="20" protocol_id="141" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="21" protocol_id="153" return_process="userCheckProcessCallback"><!-- 设置衰减 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="22" protocol_id="154" return_process="userCheckProcessCallback"><!-- 获取	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="23" protocol_id="153" return_process="userCheckProcessCallback"><!-- 设置衰减 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="24" protocol_id="154" return_process="userCheckProcessCallback"><!-- 获取	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="321" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置衰减 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="322" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 获取	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="323" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置衰减 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="324" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 获取	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="41" protocol_id="201" return_process="userCheckProcessCallback"><!-- 设置直流频响-->
+      <return next_comm="42" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="42" protocol_id="202" return_process="userCheckProcessCallback"><!-- 询问 1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="25" protocol_id="130" return_process="userCheckProcessCallback"><!-- 开始扫描	 -->
+      <return next_comm="26" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="26" protocol_id="131" return_process="userCheckProcessCallback"><!-- 询问扫描是否结束	多次-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="28" protocol_id="147" return_process="userCheckProcessCallback"><!-- 读取AD-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="29" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG1-->
+      <return next_comm="30" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="30" protocol_id="72" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="329" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="330" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="31" protocol_id="136" return_process="userCheckProcessCallback"><!-- 设置通道	 -->
+      <return next_comm="32" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="32" protocol_id="137" return_process="userCheckProcessCallback"><!-- 询问当前通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="33" protocol_id="140" return_process="userCheckProcessCallback"><!-- 设置速度-->
+      <return next_comm="34" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="34" protocol_id="141" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="43" protocol_id="201" return_process="userCheckProcessCallback"><!-- 设置直流频响-->
+      <return next_comm="44" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="44" protocol_id="202" return_process="userCheckProcessCallback"><!-- 询问 1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="35" protocol_id="130" return_process="userCheckProcessCallback"><!-- 开始扫描	 -->
+      <return next_comm="36" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="36" protocol_id="131" return_process="userCheckProcessCallback"><!-- 询问扫描是否结束	多次-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="38" protocol_id="147" return_process="userCheckProcessCallback"><!-- 读取AD-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="338" protocol_id="3163" return_process="userCheckProcessCallback"><!-- 锁定光衰2-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-339" protocol_id="3165" return_process="userCheckProcessCallback"><!-- 关闭光衰 开启 0,1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-340" protocol_id="3166" return_process="userCheckProcessCallback"><!-- 状态-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-341" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 调整光衰波长1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-342" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-343" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 调整光衰1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-344" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-345" protocol_id="3165" return_process="userCheckProcessCallback"><!-- 关闭光衰 开启 0,1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-346" protocol_id="3166" return_process="userCheckProcessCallback"><!-- 状态-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="353" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 光开关到功率计-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="354" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="53" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关到功率计-->
+      <return next_comm="54" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="54" protocol_id="72" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="355" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="357" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 光开关到功率计-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="358" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="57" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关到功率计-->
+      <return next_comm="58" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="58" protocol_id="72" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+
+
+    <comm id="39" protocol_id="148" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="1115" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="50" protocol_id="148" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="51" protocol_id="247" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="1115" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+  </operation>
+  <!-- ae8600s分辨率频响与频响校验-->
+  <operation type="ae8600s_resolution_freq">
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1113" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1114" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="1112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1115" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1116" protocol_id="222" return_process="userCheckProcessCallback"><!-- 获取序列号 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-21" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 -->
+      <return next_comm="-20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-20" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-17" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG2 -->
+      <return next_comm="-16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-16" protocol_id="72" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-15" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG1 -->
+      <return next_comm="-14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-14" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="1" protocol_id="122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="2" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="3" protocol_id="205" return_process="userCheckProcessCallback"><!-- 设置分析模式 dfb = 5	 -->
+      <return next_comm="4" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="4" protocol_id="206" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="5" protocol_id="209" return_process="userCheckProcessCallback"><!-- 自动分析 分辨率调整关闭 平滑关闭 波长真空-->
+      <return next_comm="6" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="6" protocol_id="210" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="7" protocol_id="233" return_process="userCheckProcessCallback"><!-- SPAN 5nm -->
+      <return next_comm="8" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="8" protocol_id="234" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="9" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置灵敏度 MID -->
+      <return next_comm="10" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="10" protocol_id="204" return_process="userCheckProcessCallback"><!-- 2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11" protocol_id="225" return_process="userCheckProcessCallback"><!-- 设置采样间隔 -->
+      <return next_comm="12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="12" protocol_id="226" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="13" protocol_id="217" return_process="userCheckProcessCallback"><!-- 关闭平滑 -->
+      <return next_comm="14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="14" protocol_id="218" return_process="userCheckProcessCallback"><!-- 2 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="15" protocol_id="140" return_process="userCheckProcessCallback"><!-- 灵敏度 NID -->
+      <return next_comm="16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="16" protocol_id="141" return_process="userCheckProcessCallback"><!-- 2 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="17" protocol_id="211" return_process="userCheckProcessCallback"><!-- 设置压偏 0  删除 -->
+      <return next_comm="18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="18" protocol_id="212" return_process="userCheckProcessCallback"><!-- 0 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="19" protocol_id="215" return_process="userCheckProcessCallback"><!-- 设置谱宽 3db -->
+      <return next_comm="20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="20" protocol_id="216" return_process="userCheckProcessCallback"><!-- 0 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="21" protocol_id="71" return_process="userCheckProcessCallback"><!-- 设置光源波长	修改光开关通道实现切换光源波波长 -->
+      <return next_comm="22" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="22" protocol_id="72" return_process="userCheckProcessCallback"><!-- 询问光源波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="23" protocol_id="5" return_process="userCheckProcessCallback"><!-- 设置光源输出功率	 -->
+      <return next_comm="24" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="24" protocol_id="6" return_process="userCheckProcessCallback"><!-- 询问光源输出功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="25" protocol_id="71" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="26" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="26" protocol_id="72" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="325" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="326" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="27" protocol_id="150" return_process="userCheckProcessCallback"><!-- 设置单次扫描	 -->
+      <return next_comm="28" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="28" protocol_id="129" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="29" protocol_id="124" return_process="userCheckProcessCallback"><!-- 设置8600s波长	 -->
+      <return next_comm="30" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="30" protocol_id="125" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="31" protocol_id="213" return_process="userCheckProcessCallback"><!-- 设置分辨率-->
+      <return next_comm="32" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="32" protocol_id="214" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="33" protocol_id="130" return_process="userCheckProcessCallback"><!-- 扫描-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="34" protocol_id="131" return_process="userCheckProcessCallback"><!-- 扫描是否完成-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="36" protocol_id="134" return_process="userCheckProcessCallback"><!-- 获取DFB分析-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="37" protocol_id="148" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="1115" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="39" protocol_id="219" return_process="userCheckProcessCallback"><!-- 设置波长真空-->
+      <return next_comm="40" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="40" protocol_id="220" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="41" protocol_id="223" return_process="userCheckProcessCallback"><!-- 设置分辨率调整关闭-->
+      <return next_comm="42" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="42" protocol_id="224" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="100" protocol_id="130" return_process="userCheckProcessCallback"><!-- 扫描-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="101" protocol_id="132" return_process="userCheckProcessCallback"><!-- 停止扫描-->
+      <return next_comm="102" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="102" protocol_id="131" return_process="userCheckProcessCallback"><!-- 扫描是否完成-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="103" protocol_id="134" return_process="userCheckProcessCallback"><!-- 获取DFB分析-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+  </operation>
+  <!-- ae8600s直流频响校验-->
+  <operation type="ae8600s_directcurrent_check_freq">
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1113" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1114" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="1112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1115" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1116" protocol_id="222" return_process="userCheckProcessCallback"><!-- 获取序列号 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-21" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG1-->
+      <return next_comm="-20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-20" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-19" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG2 -->
+      <return next_comm="-18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-18" protocol_id="72" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-17" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG3 -->
+      <return next_comm="-16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-16" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-15" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG4 -->
+      <return next_comm="-14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-14" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-12" protocol_id="170" return_process="userCheckProcessCallback"> <!-- 询问	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-11" protocol_id="151" return_process="userCheckProcessCallback"><!-- 调整光衰波长1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-10" protocol_id="152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-9" protocol_id="151" return_process="userCheckProcessCallback"><!-- 调整光衰波长2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-8" protocol_id="152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-7" protocol_id="160" return_process="userCheckProcessCallback"><!-- 调整功率波长3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-6" protocol_id="161" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-311" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 调整光衰波长1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-310" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-309" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 调整光衰波长2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-308" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-307" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 调整功率波长3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-306" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-5" protocol_id="153" return_process="userCheckProcessCallback"><!-- 调整1光衰 15	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-4" protocol_id="154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-3" protocol_id="153" return_process="userCheckProcessCallback"><!-- 调整2光衰 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-2" protocol_id="154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-305" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 调整1光衰 15	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-304" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-303" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 调整2光衰 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-302" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-1" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG5-->
+      <return next_comm="-100" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-100" protocol_id="72" return_process="userCheckProcessCallback"><!-- 8	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-301" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG5-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-400" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 8	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-101" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG1-->
+      <return next_comm="-102" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-102" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-104" protocol_id="162" return_process="userCheckProcessCallback"><!-- 获取功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-404" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 获取功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-105" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整  OG5-->
+      <return next_comm="-106" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-106" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1-6	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-405" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 光开关调整  OG5-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-406" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 1-6	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-107" protocol_id="239" return_process="userCheckProcessCallback"><!-- 自动清零设置，ON	 -->
+      <return next_comm="-108" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-108" protocol_id="240" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="1" protocol_id="122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="2" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="3" protocol_id="205" return_process="userCheckProcessCallback"><!-- 设置分析模式 dfb = 5	 -->
+      <return next_comm="4" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="4" protocol_id="206" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="5" protocol_id="209" return_process="userCheckProcessCallback"><!-- 自动分析 分辨率调整关闭 平滑关闭 波长真空-->
+      <return next_comm="6" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="6" protocol_id="210" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="7" protocol_id="233" return_process="userCheckProcessCallback"><!-- SPAN 5nm -->
+      <return next_comm="8" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="8" protocol_id="234" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="9" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置灵敏度 MID -->
+      <return next_comm="10" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="10" protocol_id="204" return_process="userCheckProcessCallback"><!-- 2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11" protocol_id="225" return_process="userCheckProcessCallback"><!-- 设置采样点 -->
+      <return next_comm="12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="12" protocol_id="226" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="13" protocol_id="217" return_process="userCheckProcessCallback"><!-- 关闭平滑 -->
+      <return next_comm="14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="14" protocol_id="218" return_process="userCheckProcessCallback"><!-- 2 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="15" protocol_id="140" return_process="userCheckProcessCallback"><!-- 灵敏度 NID -->
+      <return next_comm="16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="16" protocol_id="141" return_process="userCheckProcessCallback"><!-- 2 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="17" protocol_id="211" return_process="userCheckProcessCallback"><!-- 设置压偏 0  删除 -->
+      <return next_comm="18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="18" protocol_id="212" return_process="userCheckProcessCallback"><!-- 0 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="19" protocol_id="215" return_process="userCheckProcessCallback"><!-- 设置谱宽 3db -->
+      <return next_comm="20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="20" protocol_id="216" return_process="userCheckProcessCallback"><!-- 0 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="21" protocol_id="124" return_process="userCheckProcessCallback"><!-- 设置中心波长 1550 -->
+      <return next_comm="22" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="22" protocol_id="125" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="23" protocol_id="237" return_process="userCheckProcessCallback"><!-- 结束直流频响	 -->
+      <return next_comm="24" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="24" protocol_id="238" return_process="userCheckProcessCallback"><!-- 询问	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="25" protocol_id="71" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="26" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="26" protocol_id="72" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="325" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="326" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="27" protocol_id="150" return_process="userCheckProcessCallback"><!-- 设置单次扫描	 -->
+      <return next_comm="28" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="28" protocol_id="129" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="29" protocol_id="124" return_process="userCheckProcessCallback"><!-- 设置8600s波长	 -->
+      <return next_comm="30" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="30" protocol_id="125" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="31" protocol_id="213" return_process="userCheckProcessCallback"><!-- 设置分辨率-->
+      <return next_comm="32" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="32" protocol_id="214" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="33" protocol_id="130" return_process="userCheckProcessCallback"><!-- 扫描-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="34" protocol_id="131" return_process="userCheckProcessCallback"><!-- 扫描是否完成-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="36" protocol_id="134" return_process="userCheckProcessCallback"><!-- 获取DFB分析-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="37" protocol_id="148" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="1115" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="338" protocol_id="3163" return_process="userCheckProcessCallback"><!-- 读取AD-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="39" protocol_id="219" return_process="userCheckProcessCallback"><!-- 设置波长真空-->
+      <return next_comm="40" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="40" protocol_id="220" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="41" protocol_id="223" return_process="userCheckProcessCallback"><!-- 设置分辨率调整关闭-->
+      <return next_comm="42" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="42" protocol_id="224" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="43" protocol_id="153" return_process="userCheckProcessCallback"><!-- 设置光衰 1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="44" protocol_id="154" return_process="userCheckProcessCallback"><!-- 设置光衰 2-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="45" protocol_id="153" return_process="userCheckProcessCallback"><!-- 设置光衰 1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="46" protocol_id="154" return_process="userCheckProcessCallback"><!-- 设置光衰 2-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="343" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置光衰 1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="344" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 设置光衰 2-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="345" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置光衰 1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="346" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 设置光衰 2-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-339" protocol_id="3165" return_process="userCheckProcessCallback"><!-- 关闭光衰 开启 0,1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-340" protocol_id="3166" return_process="userCheckProcessCallback"><!-- 状态-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-341" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 调整光衰波长1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-342" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-343" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 调整光衰1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-344" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-345" protocol_id="3165" return_process="userCheckProcessCallback"><!-- 关闭光衰 开启 0,1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-346" protocol_id="3166" return_process="userCheckProcessCallback"><!-- 状态-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="353" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 光开关到功率计-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="354" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="53" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关到功率计-->
+      <return next_comm="54" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="54" protocol_id="72" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="355" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="357" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 光开关到功率计-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="358" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="57" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关到功率计-->
+      <return next_comm="58" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="58" protocol_id="72" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="47" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置灵敏度 h3 -->
+      <return next_comm="48" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="48" protocol_id="204" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+  </operation>
+  <!-- ae8600s标准距频响校验-->
+  <operation type="ae8600s_standardDistance_freq">
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1113" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1114" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="1112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1115" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1116" protocol_id="222" return_process="userCheckProcessCallback"><!-- 获取序列号 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-21" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 -->
+      <return next_comm="-20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-20" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-19" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *48 -->
+      <return next_comm="-18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-18" protocol_id="72" return_process="userCheckProcessCallback"><!-- 47	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-17" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG2 -->
+      <return next_comm="-16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-16" protocol_id="72" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-15" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG1 -->
+      <return next_comm="-14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-14" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-13" protocol_id="239" return_process="userCheckProcessCallback"><!-- 自动清零设置，ON	 -->
+      <return next_comm="-12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-12" protocol_id="240" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-109" protocol_id="148" return_process="userCheckProcessCallback"><!-- 设置RBW清零	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="1" protocol_id="122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="2" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="3" protocol_id="213" return_process="userCheckProcessCallback"><!-- 分辨率	 -->
+      <return next_comm="4" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="4" protocol_id="214" return_process="userCheckProcessCallback"><!-- 0.02
+    	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="5" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置灵敏度 -->
+      <return next_comm="6" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="6" protocol_id="204" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2007" protocol_id="233" return_process="userCheckProcessCallback"><!-- 设置span -->
+      <return next_comm="2008" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2008" protocol_id="234" return_process="userCheckProcessCallback"><!-- 10	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="7" protocol_id="225" return_process="userCheckProcessCallback"><!-- 设置采样间隔 -->
+      <return next_comm="8" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="8" protocol_id="226" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="9" protocol_id="71" return_process="userCheckProcessCallback"><!-- *8 光开关 -->
+      <return next_comm="10" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="10" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="309" protocol_id="3071" return_process="userCheckProcessCallback"><!-- *8 光开关 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="310" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11" protocol_id="150" return_process="userCheckProcessCallback"><!-- 设置单次扫描	 -->
+      <return next_comm="12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="12" protocol_id="129" return_process="userCheckProcessCallback"><!-- 1	 -->
+    <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="411" protocol_id="150" return_process="userCheckProcessCallback"><!-- 设置单次扫描	 -->
+      <return next_comm="412" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="412" protocol_id="129" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="13" protocol_id="227" return_process="userCheckProcessCallback"><!-- 起始波长 -->
+      <return next_comm="14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="14" protocol_id="228" return_process="userCheckProcessCallback"><!-- 结束波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="15" protocol_id="229" return_process="userCheckProcessCallback"><!-- 结束波长 -->
+      <return next_comm="16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="16" protocol_id="230" return_process="userCheckProcessCallback"><!-- 询问	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="21" protocol_id="225" return_process="userCheckProcessCallback"><!-- 设置采样间隔 -->
+      <return next_comm="22" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="22" protocol_id="226" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="17" protocol_id="130" return_process="userCheckProcessCallback"><!-- 扫描-->
+      <return next_comm="18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="18" protocol_id="131" return_process="userCheckProcessCallback"><!-- 扫描是否结束-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="19" protocol_id="232" return_process="userCheckProcessCallback"><!-- 获取波形数据-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="20" protocol_id="235" return_process="userCheckProcessCallback"><!-- 获取波形数据-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="37" protocol_id="148" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="1115" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="50" protocol_id="148" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="51" protocol_id="247" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="1115" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+  </operation>
+  <!-- ae8600s频响修正-->
+  <operation type="ae8600s_correction_freq">
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1113" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1114" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="1112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1115" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1116" protocol_id="222" return_process="userCheckProcessCallback"><!-- 获取序列号 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-21" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 -->
+      <return next_comm="-20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-20" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-17" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG2 -->
+      <return next_comm="-16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-16" protocol_id="72" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-15" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG1 -->
+      <return next_comm="-14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-14" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="1" protocol_id="122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="2" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="3" protocol_id="205" return_process="userCheckProcessCallback"><!-- 设置分析模式 dfb = 5	 -->
+      <return next_comm="4" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="4" protocol_id="206" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="5" protocol_id="209" return_process="userCheckProcessCallback"><!-- 自动分析 分辨率调整关闭 平滑关闭 波长真空-->
+      <return next_comm="6" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="6" protocol_id="210" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="7" protocol_id="138" return_process="userCheckProcessCallback"><!-- SPAN 5nm -->
+      <return next_comm="8" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="8" protocol_id="139" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="9" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置灵敏度 MID -->
+      <return next_comm="10" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="10" protocol_id="204" return_process="userCheckProcessCallback"><!-- 2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11" protocol_id="144" return_process="userCheckProcessCallback"><!-- 设置采样点 -->
+      <return next_comm="12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="12" protocol_id="145" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="13" protocol_id="217" return_process="userCheckProcessCallback"><!-- 关闭平滑 -->
+      <return next_comm="14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="14" protocol_id="218" return_process="userCheckProcessCallback"><!-- 2 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="15" protocol_id="140" return_process="userCheckProcessCallback"><!-- 灵敏度 NID -->
+      <return next_comm="16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="16" protocol_id="141" return_process="userCheckProcessCallback"><!-- 2 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="17" protocol_id="211" return_process="userCheckProcessCallback"><!-- 设置压偏 0  删除 -->
+      <return next_comm="18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="18" protocol_id="212" return_process="userCheckProcessCallback"><!-- 0 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="19" protocol_id="215" return_process="userCheckProcessCallback"><!-- 设置谱宽 3db -->
+      <return next_comm="20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="20" protocol_id="216" return_process="userCheckProcessCallback"><!-- 0 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="21" protocol_id="71" return_process="userCheckProcessCallback"><!-- 设置光源波长	修改光开关通道实现切换光源波波长 -->
+      <return next_comm="22" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="22" protocol_id="72" return_process="userCheckProcessCallback"><!-- 询问光源波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="23" protocol_id="5" return_process="userCheckProcessCallback"><!-- 设置光源输出功率	 -->
+      <return next_comm="24" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="24" protocol_id="6" return_process="userCheckProcessCallback"><!-- 询问光源输出功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="25" protocol_id="71" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="26" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="26" protocol_id="72" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="325" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="326" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 切换光源通道	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="27" protocol_id="150" return_process="userCheckProcessCallback"><!-- 设置单次扫描	 -->
+      <return next_comm="28" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="28" protocol_id="129" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="29" protocol_id="124" return_process="userCheckProcessCallback"><!-- 设置8600s波长	 -->
+      <return next_comm="30" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="30" protocol_id="125" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="31" protocol_id="213" return_process="userCheckProcessCallback"><!-- 设置分辨率-->
+      <return next_comm="32" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="32" protocol_id="214" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="33" protocol_id="130" return_process="userCheckProcessCallback"><!-- 扫描-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="34" protocol_id="131" return_process="userCheckProcessCallback"><!-- 扫描是否完成-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="36" protocol_id="134" return_process="userCheckProcessCallback"><!-- 获取DFB分析-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="37" protocol_id="148" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="1115" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="39" protocol_id="219" return_process="userCheckProcessCallback"><!-- 设置波长真空-->
+      <return next_comm="40" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="40" protocol_id="220" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="41" protocol_id="223" return_process="userCheckProcessCallback"><!-- 设置分辨率调整关闭-->
+      <return next_comm="42" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="42" protocol_id="224" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+  </operation>
+  <!-- ae8600开机重复性测试-->
+  <operation type="ae8600s_onOff_freq">
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1113" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1114" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="1112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1115" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1116" protocol_id="222" return_process="userCheckProcessCallback"><!-- 获取序列号 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <!-- 8600s设置-->
+    <comm id="1" protocol_id="122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="2" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="3" protocol_id="124" return_process="userCheckProcessCallback"><!-- 设置86400s中心波长	 -->
+      <return next_comm="4" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="4" protocol_id="125" return_process="userCheckProcessCallback"><!-- 询问86400s中心波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="5" protocol_id="233" return_process="userCheckProcessCallback"><!-- 设置86400span	 -->
+      <return next_comm="6" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="6" protocol_id="234" return_process="userCheckProcessCallback"><!-- 询问86400span	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="7" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置86400s灵敏度	 -->
+      <return next_comm="8" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="8" protocol_id="204" return_process="userCheckProcessCallback"><!-- 询问86400s灵敏度	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="9" protocol_id="213" return_process="userCheckProcessCallback"><!-- 设置86400s分辨率	 -->
+      <return next_comm="10" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="10" protocol_id="214" return_process="userCheckProcessCallback"><!-- 询问86400s分辨率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11" protocol_id="225" return_process="userCheckProcessCallback"><!-- 设置86400s采样间隔 0.001	 -->
+      <return next_comm="12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="12" protocol_id="226" return_process="userCheckProcessCallback"><!-- 询问86400s采样点	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="13" protocol_id="241" return_process="userCheckProcessCallback"><!-- 设置开启自动搜索 -->
+      <return next_comm="14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="14" protocol_id="242" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="15" protocol_id="243" return_process="userCheckProcessCallback"><!-- 波峰-->
+      <return next_comm="17" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="16" protocol_id="244" return_process="userCheckProcessCallback"><!-- 波谷	 -->
+      <return next_comm="17" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="17" protocol_id="128" return_process="userCheckProcessCallback"><!-- 设置单次扫描	 -->
+      <return next_comm="18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="18" protocol_id="129" return_process="userCheckProcessCallback"><!-- 获取单次扫描	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="19" protocol_id="130" return_process="userCheckProcessCallback"><!-- 开始扫描	 -->
+      <return next_comm="20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="20" protocol_id="131" return_process="userCheckProcessCallback"><!-- 询问扫描是否结束	多次-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="21" protocol_id="246" return_process="userCheckProcessCallback"><!-- 获取功率-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="22" protocol_id="245" return_process="userCheckProcessCallback"><!-- 获取波长-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="23" protocol_id="247" return_process="userCheckProcessCallback"><!-- 重启机器-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+  </operation>
+  <!-- ae8600稳定性测试-->
+  <operation type="ae8600s_stability_freq">
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1113" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="1114" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1114" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="1116" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="1112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1115" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1116" protocol_id="3222" return_process="userCheckProcessCallback"><!-- 获取序列号 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <!-- 8600s设置-->
+    <comm id="1" protocol_id="3122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="2" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="3123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="3" protocol_id="3124" return_process="userCheckProcessCallback"><!-- 设置86400s中心波长	 -->
+      <return next_comm="4" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="4" protocol_id="3125" return_process="userCheckProcessCallback"><!-- 询问86400s中心波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="5" protocol_id="3233" return_process="userCheckProcessCallback"><!-- 设置86400span	 -->
+      <return next_comm="6" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="6" protocol_id="3234" return_process="userCheckProcessCallback"><!-- 询问86400span	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="7" protocol_id="3203" return_process="userCheckProcessCallback"><!-- 设置86400s灵敏度	 -->
+      <return next_comm="8" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="8" protocol_id="3204" return_process="userCheckProcessCallback"><!-- 询问86400s灵敏度	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="9" protocol_id="3213" return_process="userCheckProcessCallback"><!-- 设置86400s分辨率	 -->
+      <return next_comm="10" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="10" protocol_id="3214" return_process="userCheckProcessCallback"><!-- 询问86400s分辨率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11" protocol_id="3225" return_process="userCheckProcessCallback"><!-- 设置86400s采样间隔 0.001	 -->
+      <return next_comm="12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="12" protocol_id="3226" return_process="userCheckProcessCallback"><!-- 询问86400s采样点	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="13" protocol_id="3241" return_process="userCheckProcessCallback"><!-- 设置开启自动搜索 -->
+      <return next_comm="14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="14" protocol_id="3242" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="15" protocol_id="3243" return_process="userCheckProcessCallback"><!-- 波峰-->
+      <return next_comm="17" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="16" protocol_id="3244" return_process="userCheckProcessCallback"><!-- 波谷	 -->
+      <return next_comm="17" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="17" protocol_id="3128" return_process="userCheckProcessCallback"><!-- 设置单次扫描	 -->
+      <return next_comm="18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="18" protocol_id="3129" return_process="userCheckProcessCallback"><!-- 获取单次扫描	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="19" protocol_id="3130" return_process="userCheckProcessCallback"><!-- 开始扫描	 -->
+      <return next_comm="20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="20" protocol_id="3131" return_process="userCheckProcessCallback"><!-- 询问扫描是否结束	多次-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="21" protocol_id="3246" return_process="userCheckProcessCallback"><!-- 获取功率-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="22" protocol_id="3245" return_process="userCheckProcessCallback"><!-- 获取波长-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="23" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+  </operation>
+  <!-- ae8600出厂校验-->
+  <operation type="ae8600s_inspection_freq">
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1113" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1114" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="1112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1115" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1116" protocol_id="222" return_process="userCheckProcessCallback"><!-- 获取序列号 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-1" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 光开关	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-2" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1" protocol_id="122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="2" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="3" protocol_id="205" return_process="userCheckProcessCallback"><!-- 设置分析模式 dfb = 5	 -->
+      <return next_comm="4" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="4" protocol_id="206" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="5" protocol_id="209" return_process="userCheckProcessCallback"><!-- 自动分析 分辨率调整关闭 平滑关闭 波长真空-->
+      <return next_comm="6" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="6" protocol_id="210" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="7" protocol_id="138" return_process="userCheckProcessCallback"><!-- SPAN 5nm -->
+      <return next_comm="8" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="8" protocol_id="139" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="9" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置灵敏度 MID -->
+      <return next_comm="10" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="10" protocol_id="204" return_process="userCheckProcessCallback"><!-- 2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11" protocol_id="225" return_process="userCheckProcessCallback"><!-- 设置采样间隔 -->
+      <return next_comm="12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="12" protocol_id="226" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="13" protocol_id="217" return_process="userCheckProcessCallback"><!-- 关闭平滑 -->
+      <return next_comm="14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="14" protocol_id="218" return_process="userCheckProcessCallback"><!-- 2 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="15" protocol_id="140" return_process="userCheckProcessCallback"><!-- 灵敏度 NID -->
+      <return next_comm="16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="16" protocol_id="141" return_process="userCheckProcessCallback"><!-- 2 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="17" protocol_id="211" return_process="userCheckProcessCallback"><!-- 设置压偏 0  删除 -->
+      <return next_comm="18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="18" protocol_id="212" return_process="userCheckProcessCallback"><!-- 0 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="19" protocol_id="3215" return_process="userCheckProcessCallback"><!-- 设置谱宽 3db -->
+      <return next_comm="20" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="20" protocol_id="216" return_process="userCheckProcessCallback"><!-- 0 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="21" protocol_id="219" return_process="userCheckProcessCallback"><!-- 设置波长真空-->
+      <return next_comm="22" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="22" protocol_id="220" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="23" protocol_id="223" return_process="userCheckProcessCallback"><!-- 设置分辨率调整关闭-->
+      <return next_comm="24" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="24" protocol_id="224" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="27" protocol_id="150" return_process="userCheckProcessCallback"><!-- 设置单次扫描	 -->
+      <return next_comm="28" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="28" protocol_id="129" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="29" protocol_id="124" return_process="userCheckProcessCallback"><!-- 设置8600s波长	 -->
+      <return next_comm="30" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="30" protocol_id="125" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="51" protocol_id="248" return_process="userCheckProcessCallback"><!-- 1倍速设置	 -->
+      <return next_comm="52" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="52" protocol_id="249" return_process="userCheckProcessCallback"><!-- 询问倍速	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="31" protocol_id="213" return_process="userCheckProcessCallback"><!-- 设置分辨率-->
+      <return next_comm="32" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="32" protocol_id="214" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="33" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 设置波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="34" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="35" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置光衰	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="36" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="37" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 设置波长-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="38" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 询问	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="39" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="40" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="41" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="42" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="43" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 获取功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="44" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置8600s波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="45" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="46" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="47" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="48" protocol_id="130" return_process="userCheckProcessCallback"><!-- 扫描-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="49" protocol_id="131" return_process="userCheckProcessCallback"><!-- 扫描是否完成-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="50" protocol_id="134" return_process="userCheckProcessCallback"><!-- 获取DFB分析-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="101" protocol_id="122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="102" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="102" protocol_id="123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="103" protocol_id="124" return_process="userCheckProcessCallback"><!-- 设置86400s中心波长	 -->
+      <return next_comm="104" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="104" protocol_id="125" return_process="userCheckProcessCallback"><!-- 询问86400s中心波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="105" protocol_id="233" return_process="userCheckProcessCallback"><!-- 设置86400span	 -->
+      <return next_comm="106" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="106" protocol_id="234" return_process="userCheckProcessCallback"><!-- 询问86400span	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="107" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置86400s灵敏度	 -->
+      <return next_comm="108" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="108" protocol_id="204" return_process="userCheckProcessCallback"><!-- 询问86400s灵敏度	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="109" protocol_id="213" return_process="userCheckProcessCallback"><!-- 设置86400s分辨率	 -->
+      <return next_comm="110" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="110" protocol_id="214" return_process="userCheckProcessCallback"><!-- 询问86400s分辨率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11100" protocol_id="225" return_process="userCheckProcessCallback"><!-- 设置86400s采样间隔 0.001	 -->
+      <return next_comm="11200" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11200" protocol_id="226" return_process="userCheckProcessCallback"><!-- 询问86400s采样点	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="113" protocol_id="205" return_process="userCheckProcessCallback"><!-- 设置分析模式 dfb = 5	 -->
+      <return next_comm="114" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="114" protocol_id="206" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="115" protocol_id="209" return_process="userCheckProcessCallback"><!-- 自动分析 -->
+      <return next_comm="116" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="116" protocol_id="210" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="117" protocol_id="248" return_process="userCheckProcessCallback"><!-- 扫描倍速 -->
+      <return next_comm="118" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="118" protocol_id="249" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <!--光源光开关、功率计、光衰-->
+    <comm id="133" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 设置波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="134" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="135" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置光衰	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="136" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="137" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 设置波长-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="138" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 询问	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="139" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="140" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="141" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="142" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="143" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 获取功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="144" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置8600s波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="145" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="151" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="152" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="153" protocol_id="309" return_process="userCheckProcessCallback"><!-- 调光波长计单位-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="154" protocol_id="310" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="155" protocol_id="311" return_process="userCheckProcessCallback"><!-- 询问波长-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="156" protocol_id="312" return_process="userCheckProcessCallback"><!-- 询问波长-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="146" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="147" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="148" protocol_id="130" return_process="userCheckProcessCallback"><!-- 开始扫描	 -->
+      <return next_comm="149" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="149" protocol_id="131" return_process="userCheckProcessCallback"><!-- 询问扫描是否结束	多次-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="150" protocol_id="134" return_process="userCheckProcessCallback"><!-- 获取功率-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="151" protocol_id="245" return_process="userCheckProcessCallback"><!-- 获取波长-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+
+    <comm id="201" protocol_id="122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="202" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="202" protocol_id="123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="203" protocol_id="124" return_process="userCheckProcessCallback"><!-- 设置86400s中心波长	 -->
+      <return next_comm="204" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="204" protocol_id="125" return_process="userCheckProcessCallback"><!-- 询问86400s中心波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="205" protocol_id="233" return_process="userCheckProcessCallback"><!-- 设置86400span	 -->
+      <return next_comm="206" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="206" protocol_id="234" return_process="userCheckProcessCallback"><!-- 询问86400span	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="207" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置86400s灵敏度	 -->
+      <return next_comm="208" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="208" protocol_id="204" return_process="userCheckProcessCallback"><!-- 询问86400s灵敏度	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="209" protocol_id="213" return_process="userCheckProcessCallback"><!-- 设置86400s分辨率	 -->
+      <return next_comm="210" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="210" protocol_id="214" return_process="userCheckProcessCallback"><!-- 询问86400s分辨率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="211" protocol_id="225" return_process="userCheckProcessCallback"><!-- 设置86400s采样间隔 0.001	 -->
+      <return next_comm="212" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="212" protocol_id="226" return_process="userCheckProcessCallback"><!-- 询问86400s采样点	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="213" protocol_id="205" return_process="userCheckProcessCallback"><!-- 设置分析模式 dfb = 5	 -->
+      <return next_comm="214" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="214" protocol_id="206" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="215" protocol_id="209" return_process="userCheckProcessCallback"><!-- 自动分析 -->
+      <return next_comm="216" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="216" protocol_id="210" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="217" protocol_id="248" return_process="userCheckProcessCallback"><!-- 扫描倍速 -->
+      <return next_comm="218" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="218" protocol_id="249" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <!--光源光开关、功率计、光衰-->
+    <comm id="233" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 设置波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="234" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="235" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置光衰	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="236" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="237" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 设置波长-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="238" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 询问	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="239" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="240" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="241" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="242" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="243" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 获取功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="244" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置8600s波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="245" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="246" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="247" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="248" protocol_id="130" return_process="userCheckProcessCallback"><!-- 扫描-->
+      <return next_comm="249" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="249" protocol_id="131" return_process="userCheckProcessCallback"><!-- 扫描是否完成-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="250" protocol_id="134" return_process="userCheckProcessCallback"><!-- 获取DFB分析-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="251" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="252" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="253" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 获取功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+  </operation>
+
+  <operation type="ae8600s_rbw_freq">
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1113" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1114" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="1112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1115" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1116" protocol_id="222" return_process="userCheckProcessCallback"><!-- 获取序列号 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-19" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 *2 OG1-->
+      <return next_comm="-18" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-18" protocol_id="72" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-17" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG3 -->
+      <return next_comm="-16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-16" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-15" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG4 -->
+      <return next_comm="-14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-14" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="-339" protocol_id="3165" return_process="userCheckProcessCallback"><!-- 关闭光衰 开启 0,1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-340" protocol_id="3166" return_process="userCheckProcessCallback"><!-- 状态-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-341" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 调整光衰波长1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-342" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-343" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 调整光衰1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-344" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-345" protocol_id="3165" return_process="userCheckProcessCallback"><!-- 关闭光衰 开启 0,1-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-346" protocol_id="3166" return_process="userCheckProcessCallback"><!-- 状态-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-347" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 调整光衰波长2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-348" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-349" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 调整光衰2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-350" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="-351" protocol_id="3163" return_process="userCheckProcessCallback"><!-- 锁定光衰2-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <!-- 调整光开关 完成-->
+
+    <comm id="1" protocol_id="122" return_process="userCheckProcessCallback"><!-- 关闭自动清零设置，OFF	 -->
+      <return next_comm="2" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="123" return_process="userCheckProcessCallback"><!-- 0	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="102" protocol_id="148" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="3" protocol_id="205" return_process="userCheckProcessCallback"><!-- 设置分析模式 dfb = 5	 -->
+      <return next_comm="4" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="4" protocol_id="206" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="103" protocol_id="2001" return_process="userCheckProcessCallback"><!-- 设置 powerspan-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="104" protocol_id="2002" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="5" protocol_id="209" return_process="userCheckProcessCallback"><!-- 自动分析 分辨率调整关闭 平滑关闭 波长真空-->
+      <return next_comm="6" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="6" protocol_id="210" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="7" protocol_id="138" return_process="userCheckProcessCallback"><!-- SPAN 5nm -->
+      <return next_comm="8" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="8" protocol_id="139" return_process="userCheckProcessCallback"><!-- 5	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="9" protocol_id="203" return_process="userCheckProcessCallback"><!-- 设置灵敏度 MID -->
+      <return next_comm="10" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="10" protocol_id="204" return_process="userCheckProcessCallback"><!-- 2	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="11" protocol_id="225" return_process="userCheckProcessCallback"><!-- 设置采样间隔 -->
+      <return next_comm="12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="12" protocol_id="226" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="15" protocol_id="140" return_process="userCheckProcessCallback"><!-- 灵敏度 NID -->
+      <return next_comm="16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="16" protocol_id="141" return_process="userCheckProcessCallback"><!-- 2 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+
+    <comm id="27" protocol_id="150" return_process="userCheckProcessCallback"><!-- 设置单次扫描	 -->
+      <return next_comm="28" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="28" protocol_id="129" return_process="userCheckProcessCallback"><!-- 1	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="29" protocol_id="124" return_process="userCheckProcessCallback"><!-- 设置8600s波长	 -->
+      <return next_comm="30" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="30" protocol_id="125" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="51" protocol_id="248" return_process="userCheckProcessCallback"><!-- 1倍速设置	 -->
+      <return next_comm="52" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="52" protocol_id="249" return_process="userCheckProcessCallback"><!-- 询问倍速	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="33" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 设置波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="34" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 询问波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="35" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置光衰	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="36" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="37" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 设置波长-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="38" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 询问	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="39" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG5 -->
+      <return next_comm="40" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="40" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="339" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="340" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="43" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 获取功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="44" protocol_id="3153" return_process="userCheckProcessCallback"><!-- 设置光衰	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="45" protocol_id="3154" return_process="userCheckProcessCallback"><!-- 询问	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="53" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 获取功率	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="46" protocol_id="71" return_process="userCheckProcessCallback"><!-- 光开关调整 * OG5 -->
+      <return next_comm="47" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="47" protocol_id="72" return_process="userCheckProcessCallback"><!-- 3	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="346" protocol_id="3071" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="347" protocol_id="3072" return_process="userCheckProcessCallback"><!-- 调光开关-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="31" protocol_id="213" return_process="userCheckProcessCallback"><!-- 设置分辨率-->
+      <return next_comm="32" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="32" protocol_id="214" return_process="userCheckProcessCallback"><!-- 询问-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="48" protocol_id="130" return_process="userCheckProcessCallback"><!-- 扫描-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="49" protocol_id="131" return_process="userCheckProcessCallback"><!-- 扫描是否完成-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="50" protocol_id="134" return_process="userCheckProcessCallback"><!-- 获取DFB分析-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="61" protocol_id="148" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="1115" pre_callback="" post_callback="">|default|</return>
+    </comm>
+  </operation>
+</root>
