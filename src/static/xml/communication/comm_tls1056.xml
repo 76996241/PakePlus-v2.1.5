@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+本文件用于定义通信流程，每种操作包含一组协议，return节点定义了返回某个值之后执行什么函数，发送哪条协议。
+operation为操作节点，type为操作类型名
+comm为通信节点，id为通信就节点id，protocol_id为协议id，与protocol配置文件对应 return_process为处理协议返回值的回调函数，根据此函数的执行结果确定下一步动作
+return为协议返回值节点，next_comm为下一个通信节点的id，pre_callback为发送协议之前执行的回调函数，post_callback为发送协议之后执行的回调函数。返回err:0...等错误码的情况不用配置，程序中已经自动处理
+-->
+<root>
+  <!-- tls1056预热-->
+  <operation type="tls1056_userCheck">
+    <comm id="1" protocol_id="120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+  </operation>
+  <!-- tls1056功率测试-->
+  <operation type="tls1056_directcurrent_freq">
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="115" protocol_id="4120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1121" protocol_id="116" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="1122" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1122" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="1116" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1113" protocol_id="4120" return_process="userCheckProcessCallback"><!-- 用户名校验  -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1114" protocol_id="4121" return_process="userCheckProcessCallback"><!-- 密码校验 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1111" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="1112" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1112" protocol_id="111" return_process="userCheckProcessCallback"><!-- 建立连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1115" protocol_id="116" return_process="userCheckProcessCallback"><!-- 中断连接 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1116" protocol_id="222" return_process="userCheckProcessCallback"><!-- 获取序列号 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <!-- 设置光源 -->
+    <comm id="1" protocol_id="11" return_process="userCheckProcessCallback"><!-- 设置光源波长	 -->
+      <return next_comm="2" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2" protocol_id="10" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="3" protocol_id="418" return_process="userCheckProcessCallback"><!-- 设置功率计波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="4" protocol_id="420" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="1003" protocol_id="3151" return_process="userCheckProcessCallback"><!-- 设置功率计波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="1004" protocol_id="3152" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="2003" protocol_id="10301" return_process="userCheckProcessCallback"><!-- 设置功率计波长	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="2004" protocol_id="10302" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="5" protocol_id="5" return_process="userCheckProcessCallback"><!-- 设置光源输出功率	 -->
+      <return next_comm="6" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="6" protocol_id="6" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="8" protocol_id="424" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="1008" protocol_id="3162" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>10314
+
+    <comm id="2008" protocol_id="10314" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="11" protocol_id="11" return_process="userCheckProcessCallback"><!-- 设置光源波长	 -->
+      <return next_comm="12" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="12" protocol_id="10" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="13" protocol_id="419" return_process="userCheckProcessCallback"><!-- 设置功率计波长	 -->
+      <return next_comm="14" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="14" protocol_id="421" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="15" protocol_id="5" return_process="userCheckProcessCallback"><!-- 设置光源输出功率	 -->
+      <return next_comm="16" pre_callback="" post_callback="">|default|</return>
+    </comm>
+    <comm id="16" protocol_id="6" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="18" protocol_id="425" return_process="userCheckProcessCallback"><!-- 当前	 -->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+    <comm id="10" protocol_id="116" return_process="userCheckProcessCallback"><!-- 完成打频响设置-->
+      <return next_comm="none" pre_callback="" post_callback="">|default|</return>
+    </comm>
+
+  </operation>
+  <!-- tls1056分辨率频响与频响校验-->
+
+</root>
