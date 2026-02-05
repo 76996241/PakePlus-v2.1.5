@@ -1,0 +1,919 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+The "type" attributes of "arg" elements should be "int","uint" or "float".
+-->
+<root>
+  <!-- 中台指令 -->
+  <!--MonitorOn:TYPE:MODE 开启监控，MODE:监控模式：
+     0：RJ45自动模式
+     1：RJ45手动模式，Web请求模式
+     2：GPIB自动模式
+     3:  GPIB手动模式，Web请求模式
+     4:  串口自动模式
+     5:  串口手动模式，Web请求模式
+
+  众望达开启监控：
+	 deli@W2M@MonitorOn:MODE TASK_ID   dev_sn:0080000800003420   #TASK_ID:任务ID，MODE：目前是4（串口自动模式）
+
+  MonitorCmd0，不需要设备回复 ； MonitorCmd1，需要设备回复  ； MonitorCmd，需不需要设备回复看指令中是否有？
+  -->
+  <protocol id="100" type="set"><!--停止监控 -->
+    <content>MonitorOff</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="110" type="set"><!-- -->
+    <content>MonitorOn:0</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="111" type="set"><!-- -->
+    <content>MonitorOn:1</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3111" type="set"><!-- -->
+    <content>MonitorOn:1</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="112" type="set"><!-- -->
+    <content>MonitorOn:2</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="113" type="set"><!-- -->
+    <content>MonitorOn:3</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="114" type="set"><!-- -->
+    <content>MonitorOn:4</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="115" type="set"><!-- -->
+    <content>MonitorOn:5</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="116" type="set"><!-- -->
+    <content>MonitorOff</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+
+  <!--TSL1056(光开关1-60)-->
+  <protocol id="1" type="set">
+    <content>MonitorCmd:WAVelength:SWEep:STARt</content><!--  设置扫描开始波长-->
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="2" type="get"><!--  读取扫描开始波长-->
+    <content>MonitorCmd:WAVelength:SWEep:STARt?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3" type="set"><!--  设置扫描结束波长-->
+    <content>MonitorCmd:WAVelength:SWEep:STOP</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="4" type="get"><!--  读取扫描结束波长-->
+    <content>MonitorCmd:WAVelength:SWEep:STOP?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="5" type="set"><!--设置光输出功率  -->
+    <content>MonitorCmd:POWer</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="6" type="get"><!-- 读取光输出功率 -->
+    <content>MonitorCmd:POWer?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="7" type="set"><!--  设置扫描模式-->
+    <content>MonitorCmd:WAVelength:SWEep:MODe</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="8" type="get"><!--  读取扫描模式-->
+    <content>MonitorCmd:WAVelength:SWEep:MODe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="9" type="get"><!--  读取光输出状态-->
+    <content>MonitorCmd:POWer:STATe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10" type="get"><!--  读取波长-->
+    <content>MonitorCmd:WAVelength?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="11" type="set"><!--  设置波长-->
+    <content>MonitorCmd:WAVelength</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="12" type="get"><!--  读取光输出状态-->
+    <content>MonitorCmd:POWer:STATe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+
+  <!--步进-->
+  <protocol id="40" type="set"><!-- 设置步进扫描模式的步进 -->
+    <content>MonitorCmd:WAVelength:SWEep:STEP</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="41" type="get"><!-- 读取步进扫描模式的步进 -->
+    <content>MonitorCmd:WAVelength:SWEep:STEP?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="42" type="set"><!-- 设置步进之间的等待时间在步进扫描模式 -->
+    <content>MonitorCmd:WAVelength:SWEep:DWELl</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="43" type="get"><!-- 读取步进之间的等待时间在步进扫描模式 -->
+    <content>MonitorCmd:WAVelength:SWEep:DWELl?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="44" type="set"><!-- 设置扫描重复次数 -->
+    <content>MonitorCmd:WAVelength:SWEep:CYCLes</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="45" type="get"><!-- 读取扫描重复次数 -->
+    <content>MonitorCmd:WAVelength:SWEep:CYCLes?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <!--  连续-->
+  <protocol id="50" type="set"><!--  设置扫描速度-->
+    <content>MonitorCmd:WAVelength:SWEep:SPEed</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="51" type="get"><!--  读取扫描速度-->
+    <content>MonitorCmd:WAVelength:SWEep:SPEed?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="52" type="set"><!--设置每场扫描之前的等待时间在sweep扫描模式下  -->
+    <content>MonitorCmd:WAVelength:SWEep:DELay</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="53" type="get"><!-- 读取每场扫描之前的等待时间在sweep扫描模式下 -->
+    <content>MonitorCmd:WAVelength:SWEep:DELay?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="54" type="set"><!-- 设置扫描重复次数 -->
+    <content>MonitorCmd:WAVelength:SWEep:CYCLes</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="55" type="get"><!-- 读取扫描重复次数 -->
+    <content>MonitorCmd:WAVelength:SWEep:CYCLes?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <!--  run 开启-->
+  <protocol id="60" type="set"><!--  设置扫描状态 0: Stop  1: Start. -->
+    <content>MonitorCmd:WAVelength:SWEep</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="61" type="get"><!--  -->
+    <content>MonitorCmd:WAVelength:SWEep?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+
+  <!--光开关（光隆8孔，70-99）-->
+  <protocol id="70" type="get"><!--  查询光开关当前运行状态 -->
+    <!--
+    <AD01_M_ST31A?>
+    若光开关运行正常，返回:<AD01_OK>
+    若光开关运行错误，返回:<AD01_E2>
+     -->
+    <content>MonitorCmd:OPTICAL_SWITCH:AD01_M_STA?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="71" type="set"><!--设置当前通道,表示地址为01的光开关切换到通道 01-->
+    <!--
+    <AD01S09>
+    表示地址为01的光开关切换到通道 09;
+    若总通道为 9路以上，成功返回:<AD01 OK>
+    若总通道为 9路以下，失败返回:<AD01 E1>
+     -->
+    <content>MonitorCmd1:OPTICAL_SWITCH:AD01_S_08</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="72" type="get"><!-- 查询当前通道 -->
+    <!--
+    <AD01 TCHN?若当前通道为 2，
+    总通道小于100路时，返回:<AD0102>
+    总通道在 100路以上时，返回:<AD01_002>
+    -->
+    <content>MonitorCmd:OPTICAL_SWITCH:AD01_T_CHN?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="73" type="set"><!--设置当前通道,表示地址为01的光开关切换到通道 01-->
+    <!--
+    <AD01S09>
+    表示地址为01的光开关切换到通道 09;
+    若总通道为 9路以上，成功返回:<AD01 OK>
+    若总通道为 9路以下，失败返回:<AD01 E1>
+     -->
+    <content>MonitorCmd:OPTICAL_SWITCH:AD01_C_08</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <!--AE8600S（120-149）-->
+  <protocol id="120" type="set"><!--  OPEN “AAA”，应回应“AUTHENTICATE CRAM-MD5.”,再发密码 -->
+    <content>MonitorCmd1:OPEN "anonymous"</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3120" type="set"><!--  OPEN “AAA”，应回应“AUTHENTICATE CRAM-MD5.”,再发密码 -->
+    <content>MonitorCmd3:OPEN "anonymous"</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="4120" type="set"><!--  OPEN “AAA”，应回应“AUTHENTICATE CRAM-MD5.”,再发密码 -->
+    <content>MonitorCmd1:OPEN</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="121" type="set"><!-- 发送密码， 回应“ready”后，即进入远程控制状态 -->
+    <content>MonitorCmd1:111111</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3121" type="set"><!-- 发送密码， 回应“ready”后，即进入远程控制状态 -->
+    <content>MonitorCmd3:111111</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="4121" type="set"><!-- 发送密码， 回应“ready”后，即进入远程控制状态 -->
+    <content>MonitorCmd1:</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="122" type="set"><!--  自动清零设置，OFF（设备调零） -->
+    <content>MonitorCmd:CALIBRATION:ZERO OFF</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3122" type="set"><!--  自动清零设置，OFF（设备调零） -->
+    <content>MonitorCmd3:CALIBRATION:ZERO OFF</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="123" type="get"><!-- 对应询问，正确回应值：0 -->
+    <content>MonitorCmd:CALIBRATION:ZERO?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3123" type="get"><!-- 对应询问，正确回应值：0 -->
+    <content>MonitorCmd3:CALIBRATION:ZERO?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="124" type="set"><!--设置中心波长 SENSe:WAVelength:CENTer 1250nm-->
+    <content>MonitorCmd:SENSe:WAVelength:CENTer</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3124" type="set"><!--设置中心波长 SENSe:WAVelength:CENTer 1250nm-->
+    <content>MonitorCmd3:SENSe:WAVelength:CENTer</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="125" type="get"><!-- 询问以上设置 -->
+    <content>MonitorCmd:SENSe:WAVelength:CENTer?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3125" type="get"><!-- 询问以上设置 -->
+    <content>MonitorCmd3:SENSe:WAVelength:CENTer?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="126" type="set"><!-- 设置自动扫描 -->
+    <content>MonitorCmd:INITiate:SMODe 3</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3126" type="set"><!-- 设置波长扫描 -->
+    <content>MonitorCmd:INITiate:SMODe</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="127" type="get"><!-- 询问以上设置,返回3 -->
+    <content>MonitorCmd:INITiate:SMODe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="128" type="set"><!--  设置单次扫描 -->
+    <content>MonitorCmd:INIT:SMODE 1</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3128" type="set"><!--  设置单次扫描 -->
+    <content>MonitorCmd3:INIT:SMODE 1</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="129" type="get"><!-- 询问以上设置,返回 1 -->
+    <content>MonitorCmd:INIT:SMODE?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3129" type="get"><!-- 询问以上设置,返回 1 -->
+    <content>MonitorCmd3:INIT:SMODE?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="130" type="set"><!--  开始测量 -->
+    <content>MonitorCmd:INITiate</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3130" type="set"><!--  开始测量 -->
+    <content>MonitorCmd3:INITiate</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="131" type="get"><!-- 询问扫描结果，回复1,0 -->
+    <content>MonitorCmd:STATus:OPERation:EVENt?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3131" type="get"><!-- 询问扫描结果，回复1,0 -->
+    <content>MonitorCmd3:STATus:OPERation:EVENt?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="132" type="set"><!-- 停止扫描 -->
+    <content>MonitorCmd:ABORt</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="133" type="get"><!-- 读取ADPOS 返回数值 -->
+    <content>MonitorCmd:DEBug:ADPOSition?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="134" type="get"><!-- 询问 DFB 计算结果 -->
+    <content>MonitorCmd:CALCulate:DATA:DFBLd?</content>
+    <arg receive="true" type="float" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="135" type="get"><!-- 询问以上设置,返回3 -->
+    <content>MonitorCmd:INITiate:SMODe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="136" type="set"><!-- 通道控制选择 参数 1-10 -->
+    <content>MonitorCmd:DEBug:CHANnel</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="137" type="get"><!-- 询问以上设置,返回 数值 -->
+    <content>MonitorCmd:DEBug:CHANnel?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="138" type="set"><!-- 设置SPAN :SENSe:WAVelength:SPAN 5nm-->
+    <content>MonitorCmd:SENSe:WAVelength:SPAN 5nm</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="139" type="get"><!-- 询问以上设置,返回3 -->
+    <content>MonitorCmd:SENSe:WAVelength:SPAN?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="140" type="set"><!-- 设置速度 -->
+    <content>MonitorCmd:DEBug:SENSe</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="141" type="get"><!-- 询问以上设置,返回2 -->
+    <content>MonitorCmd:DEBug:SENSe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="142" type="set"><!-- 设置分辨率 SENSe:BANDwidth 2nm -->
+    <content>MonitorCmd:SENSe:BANDwidth 0.2nm</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="143" type="get"><!-- 询问以上设置,返回2 -->
+    <content>MonitorCmd:SENSe:BANDwidth?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="144" type="set"><!-- 设置采样点  SENSe:SWEep:POINts:AUTO 1-->
+    <content>MonitorCmd:SENSe:SWEep:POINts:AUTO 1</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="145" type="get"><!-- 询问以上设置,返回 1 -->
+    <content>MonitorCmd:SENSe:SWEep:POINts:AUTO?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="146" type="get"><!-- 询中心波长 -->
+    <content>MonitorCmd::SENSe:WAVelength:CENTer?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="147" type="get"><!-- 读取AD 返回数值noise -->
+    <content>MonitorCmd:DEBug:AD?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="148" type="get"><!-- 完成打频响  0 直流 1波长频响  6 RBW 7 删rbw波长 8删rbw功率 9删全部-->
+    <content>MonitorCmd:DEBug:PXFinish</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="149" type="get"><!-- 自动频响设置 -->
+    <content>MonitorCmd:DEBug:AUTO:STATe 2</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="150" type="set"><!--  设置单次扫描 -->
+    <content>MonitorCmd:INIT:SMODE</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+
+  <!--AE8600S（200-249）追加-->
+  <protocol id="200" type="get"><!-- 自动频响设置询问 -->
+    <content>MonitorCmd:DEBug:AUTO:STATe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="201" type="get"><!-- 设置直流频响 -->
+    <content>MonitorCmd:DEBug:AUTO:STATe 2</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="202" type="get"><!-- 直流频响设置询问 -->
+    <content>MonitorCmd:DEBug:AUTO:STATe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="203" type="set"><!-- 设置灵敏度 -->
+    <content>MonitorCmd:SENSe:SENSe</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3203" type="set"><!-- 设置灵敏度 -->
+    <content>MonitorCmd3:SENSe:SENSe</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="204" type="get"><!-- 询问以上设置,返回2 -->
+    <content>MonitorCmd:SENSe:SENSe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3204" type="get"><!-- 询问以上设置,返回2 -->
+    <content>MonitorCmd3:SENSe:SENSe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="205" type="set"><!-- 设置分析模式 dfb = 5 -->
+    <content>MonitorCmd:CALCulate:CATegory 5</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="206" type="get"><!-- 询问以上设置,返回 5 -->
+    <content>MonitorCmd:CALCulate:CATegory?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="207" type="get"><!-- 执行分析 -->
+    <content>MonitorCmd:CALCulate</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="209" type="set"><!-- 设置开启自动分析 -->
+    <content>MonitorCmd:CALCULATE:AUTO ON</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="210" type="get"><!-- 询问以上设置,返回 1 -->
+    <content>MonitorCmd:CALCULATE:AUTO?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="211" type="set"><!-- 设置压偏 -->
+    <content>MonitorCmd:DEBug:VOLTage 0</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="212" type="get"><!-- 询问以上设置,返回 0 -->
+    <content>MonitorCmd:DEBug:VOLTage?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="213" type="set"><!-- 设置分辨率 SENSe:BANDwidth 2nm -->
+    <content>MonitorCmd:SENSe:BANDwidth</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3213" type="set"><!-- 设置分辨率 SENSe:BANDwidth 2nm -->
+    <content>MonitorCmd3:SENSe:BANDwidth</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="214" type="get"><!-- 询问以上设置,返回2 -->
+    <content>MonitorCmd:SENSe:BANDwidth?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3214" type="get"><!-- 询问以上设置,返回2 -->
+    <content>MonitorCmd3:SENSe:BANDwidth?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="215" type="set"><!-- 设置谱宽 3DB -->
+    <content>MonitorCmd:CALCULATE:PARAMETER:DFBLD SWIDTH,TH,3.00DB</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3215" type="set"><!-- 设置谱宽 3DB -->
+    <content>MonitorCmd:CALCULATE:PARAMETER:DFBLD SWIDTH,TH,</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="216" type="get"><!-- 询问以上设置,返回2 -->
+    <content>MonitorCmd:CALCULATE:PARAMETER:DFBLD? SWIDTH,TH</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="217" type="set"><!-- 设置关闭平滑 -->
+    <content>MonitorCmd:SENSe:SETTing:SMOothing OFF</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="218" type="get"><!-- 询问以上设置,返回0 -->
+    <content>MonitorCmd:SENSe:SETTing:SMOothing?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="219" type="set"><!-- 设置波长真空 -->
+    <content>MonitorCmd:SENSE:CORRection:RVELocity:MEDIUM VACUUM</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="220" type="get"><!-- 询问以上设置,返回0 -->
+    <content>MonitorCmd:SENSE:CORRection:RVELocity:MEDIUM?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="222" type="get"><!-- 获取序列号 -->
+    <content>MonitorCmd:*IDN?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3222" type="get"><!-- 获取序列号 -->
+    <content>MonitorCmd3:*IDN?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3224" type="get"><!-- 获取序列号 -->
+    <content>MonitorCmd3:*IDNEX?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="223" type="set"><!-- 获取序列号 -->
+    <content>MonitorCmd:SENSE:SETTING:CORRECTION OFF</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="224" type="get"><!-- 获取序列号 -->
+    <content>MonitorCmd:SENSE:SETTING:CORRECTION?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="225" type="set"><!-- 采样间隔 设置 0.001nm-->
+    <content>MonitorCmd:SENSe:SWEep:STEP</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3225" type="set"><!-- 采样间隔 设置 0.001nm-->
+    <content>MonitorCmd3:SENSe:SWEep:STEP</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="226" type="get"><!-- 获取采样间隔 -->
+    <content>MonitorCmd:SENSe:SWEep:STEP?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3226" type="get"><!-- 获取采样间隔 -->
+    <content>MonitorCmd3:SENSe:SWEep:STEP?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="227" type="set"><!-- 设置起始波长-->
+    <content>MonitorCmd:SENSe:WAVelength:STARt</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="228" type="get"><!-- 询问 -->
+    <content>MonitorCmd:SENSe:WAVelength:STARt?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="229" type="set"><!-- 设置结束波长-->
+    <content>MonitorCmd:SENSe:WAVelength:STOP</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="230" type="get"><!-- 询问 -->
+    <content>MonitorCmd:SENSe:WAVelength:STOP?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="232" type="get"><!-- 询问 -->
+    <content>MonitorCmd2:TRACE:X? TRA</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="233" type="set"><!-- 设置SPAN :SENSe:WAVelength:SPAN 5nm-->
+    <content>MonitorCmd:SENSe:WAVelength:SPAN</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3233" type="set"><!-- 设置SPAN :SENSe:WAVelength:SPAN 5nm-->
+    <content>MonitorCmd3:SENSe:WAVelength:SPAN</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="234" type="get"><!-- 询问以上设置,返回3 -->
+    <content>MonitorCmd:SENSe:WAVelength:SPAN?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3234" type="get"><!-- 询问以上设置,返回3 -->
+    <content>MonitorCmd3:SENSe:WAVelength:SPAN?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="235" type="get"><!-- 询问 -->
+    <content>MonitorCmd2:TRACE:Y? TRA</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="236" type="get"><!-- 读取各模式分析结果 -->
+    <content>MonitorCmd2:CALCulate:DATA?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="237" type="get"><!-- 结束直流频响 -->
+    <content>MonitorCmd:DEBug:AUTO:STATe 0</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="238" type="get"><!-- 结束直流频响设置询问 -->
+    <content>MonitorCmd:DEBug:AUTO:STATe?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="239" type="set"><!--  自动清零设置，OFF（设备调零） -->
+    <content>MonitorCmd:CALIBRATION:ZERO ON</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="240" type="get"><!-- 对应询问，正确回应值：0 -->
+    <content>MonitorCmd:CALIBRATION:ZERO?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="241" type="set"><!--  开启自动搜索  -->
+    <content>MonitorCmd:CALCULATE:MARKER:AUTO ON</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3241" type="set"><!--  开启自动搜索  -->
+    <content>MonitorCmd3:CALCULATE:MARKER:AUTO ON</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="242" type="get"><!-- 对应询问，正确回应值：1 -->
+    <content>MonitorCmd:CALCULATE:MARKER:AUTO?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3242" type="get"><!-- 对应询问，正确回应值：1 -->
+    <content>MonitorCmd3:CALCULATE:MARKER:AUTO?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="243" type="set"><!--  开启自动搜索波峰  -->
+    <content>MonitorCmd:CALCulate:MARKer:MAXimum</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3243" type="set"><!--  开启自动搜索波峰  -->
+    <content>MonitorCmd3:CALCulate:MARKer:MAXimum</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="244" type="set"><!-- 启自动搜索波谷 -->
+    <content>MonitorCmd::CALCulate:MARKer:MINimum</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3244" type="set"><!-- 启自动搜索波谷 -->
+    <content>MonitorCmd3::CALCulate:MARKer:MINimum</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="245" type="get"><!-- 询问波长 -->
+    <content>MonitorCmd:CALCulate:MARKer:x?0</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3245" type="get"><!-- 询问波长 -->
+    <content>MonitorCmd3:CALCulate:MARKer:x?0</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="246" type="get"><!-- 询问功率 -->
+    <content>MonitorCmd:CALCulate:MARKer:y?0</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3246" type="get"><!-- 询问功率 -->
+    <content>MonitorCmd3:CALCulate:MARKer:y?0</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="247" type="set"><!-- 重启设备 -->
+    <content>MonitorCmd:SYSTem:RESEt</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="248" type="set"><!-- 扫描速度 -->
+    <content>MonitorCmd:SENSe:SWEep:SPEed 1x</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="249" type="get"><!-- 扫描速度 -->
+    <content>MonitorCmd:SENSe:SWEep:SPEed?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="2001" type="set"><!-- 扫描速度 -->
+    <content>MonitorCmd:CALCULATE:PARAMETER:DFBLD</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="2002" type="get"><!-- 扫描速度 -->
+    <content>MonitorCmd:CALCULATE:PARAMETER:DFBLD?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <!--安捷伦(8164B，150-199)-->
+
+  <protocol id="1500" type="get"><!--获取插槽信息 n插槽-->
+    <content>MonitorCmd:SLOT[n]:IDN?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="151" type="set"><!--设置光衰波长 INP1:WAV +1.55000000E-006-->
+    <content>MonitorCmd:INP[n]:WAV</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="152" type="get"><!--  获取光衰波长-->
+    <content>MonitorCmd:INP[n]:WAV?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="153" type="set"><!--  设置光衰 INP1:ATT 14dB-->
+    <content>MonitorCmd:INP[n]:ATT</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="154" type="get"><!-- 获取光衰 -->
+    <content>MonitorCmd:INP[n]:ATT?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="160" type="set"><!-- 设置功率计波长 sens1:pow:wav 1550nm-->
+    <content>MonitorCmd:sens[n]:pow:wav</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="161" type="get"><!-- 获取功率计波长-->
+    <content>MonitorCmd:sens[n]:pow:wav?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="162" type="get"><!--  获取功率计值-->
+    <content>MonitorCmd:fetc[n]:pow?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="170" type="get"><!-- 获取仪器安装的模块-->
+    <content>MonitorCmd:*OPT?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="171" type="set"><!-- 启动自我检测-->
+    <content>MonitorCmd:*TST?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="172" type="set"><!-- 获取自我检测结果-->
+    <content>MonitorCmd:*slot:tst?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="173" type="set"><!-- 获取自我检测结果-->
+    <content>MonitorCmd:*slot1:tst?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="174" type="set"><!-- 获取自我检测结果-->
+    <content>MonitorCmd:*slot2:tst?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="175" type="set"><!-- 获取自我检测结果-->
+    <content>MonitorCmd:*slot3:tst?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <!--  AE8200|AQ6151B-->
+  <protocol id="301" type="set"><!--  :UNIT:WL THZ \r\n  (其中THZ部分可设置为NM、THZ、ICM)  THZ-->
+    <content>MonitorCmd:UNIT:WL</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="302" type="get"><!-- 获取单位 -->
+    <content>MonitorCmd1:UNIT:WL?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="303" type="set"><!--  UNIT:POW DBM \r\n （其中DBM部分可设置为，为DBM、W）DBM-->
+    <content>MonitorCmd:UNIT:POW</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="304" type="get"><!-- 获取单位 -->
+    <content>MonitorCmd:UNIT:POW?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="305" type="get"><!-- 获取单位 -->
+    <content>MonitorCmd:*RST</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="306" type="get"><!--  测量并获取频率-->
+    <content>MonitorCmd1:READ:ARRay:POWer:FREQuency?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="308" type="get"><!--  测量并获取功率-->
+    <content>MonitorCmd1:FETCh:ARRay:POWer?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="309" type="set"><!--  :UNIT:WL THZ \r\n  (其中THZ部分可设置为NM、THZ、ICM)  THZ-->
+    <content>MonitorCmd:UNIT:WL NM</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="310" type="get"><!-- 获取单位 -->
+    <content>MonitorCmd:UNIT:WL?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="311" type="get"><!-- 测量并获取波长 -->
+    <content>MonitorCmd1:READ:ARRay:POWer:WAVelength?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="312" type="get"><!-- 获取波长 -->
+    <content>MonitorCmd1:FETCh:ARRay:POWer:WAVelength?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <!--  N7752A -->
+  <protocol id="418" type="set"><!-- 设置功率计输出波长 SENS5:POW:WAV 1.54E-06-->
+    <content>MonitorCmd:SENS[n]:POW:WAV</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="419" type="set"><!-- 设置功率计输出波长 SENS6:POW:WAV 1.54E-06-->
+    <content>MonitorCmd:SENS[n]:POW:WAV</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="420" type="get"><!-- 查询功率计输出波长-->
+    <content>MonitorCmd:SENS[n]:POW:WAV?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="421" type="get"><!-- 查询功率计输出波长-->
+    <content>MonitorCmd:SENS[n]:POW:WAV?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="423" type="get"><!-- 查所有功率 -->
+    <content>MonitorCmd:FETCH:POW:ALL:CSV?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="424" type="get"><!-- 查功率 -->
+    <content>MonitorCmd:fetc[n]:pow?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="425" type="get"><!-- 查功率 -->
+    <content>MonitorCmd:fetc[n]:pow?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+
+
+  <!--  AE908  id值（3001-3999） -->
+  <protocol id="3071" type="set"><!-- 开启 光开关通道 参数8,1-->
+    <content>MonitorCmd1:device:mcu:setSwitchOn</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3072" type="get"><!-- 获取 当前光开关通道 参数8-->
+    <content>MonitorCmd1:device:mcu:getSwitchOn</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="3151" type="set"><!-- 设置功能卡波长 参数3,0,1550000-->
+    <content>MonitorCmd1:device:mcu:setWave</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3152" type="get"><!-- 获取 波长 参数 3,0 -->
+    <content>MonitorCmd1:device:mcu:getWave</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="3153" type="set"><!-- 设置光衰 参数3,0,20*1000-->
+    <content>MonitorCmd1:device:mcu:setAtt</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3154" type="get"><!-- 获取 光衰 参数 3,0 -->
+    <content>MonitorCmd1:device:mcu:getAtt</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="3162" type="get"><!-- 获取 功率 6,0 -->
+    <content>MonitorCmd1:device:opm:getPow</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="3163" type="set"><!-- 锁定光衰 参数3,0,0,0-->
+    <content>MonitorCmd1:device:voa:getVoaParams</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3165" type="set"><!-- 设置光衰 开关 3 0 0-->
+    <content>MonitorCmd1:device:mcu:setEnableFlag</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="3166" type="get"><!-- 获取状态 3 0-->
+    <content>MonitorCmd1:device:mcu:getEnableFlag</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+
+  <!--  AE8200|AQ6151B 压力测试 argument参数，执行-->
+  <protocol id="10301" type="set" name="设置单位WL" argument="NM|THZ|ICM" go="1">
+    <content>MonitorCmd:UNIT:WL</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10302" type="get" name="获取单位WL">
+    <content>MonitorCmd:UNIT:WL?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10303" type="set" name="设置单位POW" argument="DBM|W" go="1">
+    <content>MonitorCmd:UNIT:POW</content>
+    <arg receive="false" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10304" type="get" name="获取单位POW">
+    <content>MonitorCmd:UNIT:POW?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10305" type="get" name="无实际意义" go="1">
+    <content>MonitorCmd:*RST</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10306" type="get" name="测量并获取频率" go="1" time="1000">
+    <content>MonitorCmd4:READ:POWer:FREQuency?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10308" type="get" name="返回当前功率" time="1000">
+    <content>MonitorCmd4:FETCh:POWer?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10309" type="get" name="测量并获取波长" go="1" time="1000">
+    <content>MonitorCmd4:READ:POWer:WAVelength?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10310" type="get" name="返回当前波长" time="1000">
+    <content>MonitorCmd4:FETCh:POWer:WAVelength?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10311" type="get" name="返回当前频率" time="1000">
+    <content>MonitorCmd4:FETCh:POWer:FREQuency?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10312" type="get" name="（多模）测量并获取频率" go="1" time="60000">
+    <content>MonitorCmd4:READ:ARRay:POWer:FREQuency?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10313" type="get" name="（多模）返回当前波长" time="1000">
+    <content>MonitorCmd4:FETCh:ARRay:POWer?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10314" type="get" name="（多模）启动测量，并返回波长" go="1" time="60000">
+    <content>MonitorCmd4:READ:ARRay:POWer:WAVelength?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10315" type="get" name="（多模）返回当前波长" time="1000">
+    <content>MonitorCmd4:FETCh:ARRay:POWer:WAVelength?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+  <protocol id="10316" type="get" name="（多模）返回当前频率" time="1000">
+    <content>MonitorCmd4:FETCh:ARRay:POWer?</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+
+  <protocol id="10317" type="set"><!-- 开始打频响 -->
+    <content>MonitorCmd:DEBug:AUTO:STATe 1</content>
+    <arg receive="true" type="string" bytes="1" count="1"></arg>
+  </protocol>
+</root>
+
+
